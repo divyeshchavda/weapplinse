@@ -19,7 +19,14 @@ class _task232State extends State<task232> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("It's Contain Many Widgets Like Row,Column,Stack,Listview etc. Forward We Are Discuss that Row,Column and Listview so We Display Other Widget ",style: TextStyle(fontSize: MediaQuery.of(context).size.width* 0.06,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold)),
+            child: Container(decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border.all(color: Colors.black, width: 3),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("It's Contain Many Widgets Like Row,Column,Stack,Listview etc. Forward We Are Discuss that Row,Column and Listview so We Display Other Widget ",style: TextStyle(fontSize: MediaQuery.of(context).size.width* 0.06,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold)),
+            )),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -31,13 +38,22 @@ class _task232State extends State<task232> {
                     backgroundColor: Colors.black,
                     color: Colors.white)),
           ),
-          Stack(
-            children: [
-              Container(width: 100,height: 200,color: Colors.blue,),
-              Container(width: 200,height: 100,color: Colors.black,),
-              Container(width: 70,height: 150,color: Colors.yellow,),
-              Container(width: 150,height: 70,color: Colors.greenAccent,),
-            ],
+          Container(decoration: BoxDecoration(
+            color: Colors.black12,
+            border: Border.all(color: Colors.black, width: 3),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+          ),
+            child: Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Stack(
+                children: [
+                  Container(width: 100,height: 200,color: Colors.blue,),
+                  Container(width: 200,height: 100,color: Colors.black,),
+                  Container(width: 70,height: 150,color: Colors.yellow,),
+                  Container(width: 150,height: 70,color: Colors.greenAccent,),
+                ],
+              ),
+            ),
           )
         ],
       ),

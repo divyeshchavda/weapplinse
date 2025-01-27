@@ -14,7 +14,7 @@ class _task323State extends State<task323> {var a=TextEditingController();
 final k = GlobalKey<FormState>();
   var b=TextEditingController();
 var c=TextEditingController();
-final db=dbhelper();
+final db=dbhelper2();
 var rno;
 var name="",city="",rnos="";
 @override

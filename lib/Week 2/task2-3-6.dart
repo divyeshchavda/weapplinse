@@ -37,21 +37,36 @@ class _task236State extends State<task236> {
                     backgroundColor: Colors.black,
                     color: Colors.white)),
           ),
-          Slider(
-              thumbColor: Colors.black,
-              secondaryActiveColor: Colors.black,
-              value: change,
-              min: 0.00,
-              max: 100.00,
-              divisions: 100,
-              activeColor: Colors.blue,
-              onChanged: fun),
-          Center(
-            child: Text('${change.round()}',
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                border: Border.all(color: Colors.black, width: 3),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(children: [
+                  Slider(
+                      thumbColor: Colors.black,
+                      secondaryActiveColor: Colors.black,
+                      value: change,
+                      min: 0.00,
+                      max: 10.00,
+                      divisions: 10,
+                      activeColor: Colors.blue,
+                      onChanged: fun),
+                  Center(
+                    child: Text('${change.round()}',
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                ]),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -63,24 +78,43 @@ class _task236State extends State<task236> {
                     backgroundColor: Colors.black,
                     color: Colors.white)),
           ),
-          RangeSlider(
-            labels: RangeLabels(
-                '${change2.start.round()}', '${change2.end.round()}'),
-            values: change2,
-            min: 0,
-            max: 100,
-            onChanged: (RangeValues values) {
-              setState(() {
-                change2 = values; // Update the range values
-              });
-            },
-          ),
-          Center(
-            child: Text('${change2.start.round()}' "  To  " '${change2.end.round()}',
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width * 0.06,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold)),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                border: Border.all(color: Colors.black, width: 3),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(children: [
+                  RangeSlider(
+                    labels: RangeLabels(
+                        '${change2.start.round()}', '${change2.end.round()}'),
+                    values: change2,
+                    min: 0,
+                    max: 100,
+                    divisions: 10,
+                    onChanged: (RangeValues values) {
+                      setState(() {
+                        change2 = values; // Update the range values
+                      });
+                    },
+                  ),
+                  Center(
+                    child: Text(
+                        '${change2.start.round()}'
+                        "  To  "
+                        '${change2.end.round()}',
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold)),
+                  )
+                ]),
+              ),
+            ),
           )
         ],
       ),

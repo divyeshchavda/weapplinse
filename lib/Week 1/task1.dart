@@ -16,13 +16,51 @@ class _task1State extends State<task1> {
         title: Text("TASK 1"),
       ),
       body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+        child: ListView(
           children: [
-            Text("____What Is Flutter??____",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.09,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,backgroundColor: Colors.black,color: Colors.white),),
+            Text(
+              "____What Is Flutter??____",
+              style: TextStyle(
+                  fontSize: MediaQuery.of(context).size.width * 0.09,
+                  fontWeight: FontWeight.bold,
+                  fontStyle: FontStyle.italic,
+                  backgroundColor: Colors.black,
+                  color: Colors.white),
+            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("   Flutter is an open-source framework from Google that allows developers to build applications for multiple platforms using a single codebase . Platforms Flutter supports development for iOS, Android, the web, Windows, MacOS, and Linux",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.07,fontStyle: FontStyle.italic),),
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.black12,
+                      border: Border.all(color: Colors.black, width: 3),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "   Flutter is an open-source framework from Google that allows developers to build applications for multiple platforms using a single codebase . Platforms Flutter supports development for iOS, Android, the web, Windows, MacOS, and Linux",
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontStyle: FontStyle.italic),
+                    ),
+                  )),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.black12,
+                      border: Border.all(color: Colors.black, width: 3),
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      """Flutter Latest SDK := 3.27.2
+Dart Latest SDK     := 3.6.1""",
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontStyle: FontStyle.italic),
+                    ),
+                  )),
             )
           ],
         ),

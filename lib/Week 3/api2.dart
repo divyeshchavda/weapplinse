@@ -1,79 +1,297 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart' as http;
+import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:weapplinse/Week%203/task3-2-1.dart';
+import 'package:weapplinse/Week%203/task3-2-2.dart';
+import 'package:weapplinse/Week%203/task3-2-3.dart';
+import 'package:weapplinse/Week%203/task3-2-4.dart';
+import 'package:file_picker/file_picker.dart';
+import '1.dart';
+import '2.dart';
+import 'api.dart';
+import 'dbhelper.dart';
+import 'dart:typed_data';
 
-class ApiService {
-  // Base URL of the API
-  static const String _baseUrl = 'http://192.168.1.2/blog/api';
+void main(){
+  runApp(MaterialApp(home: Task32(),));
+}
 
-  // Add user method
-  static Future<dynamic> addUser({
-    required String name,
-    required String email,
-    required File profilePic,
-  }) async {
-    final Uri url = Uri.parse('$_baseUrl/add_user');
 
-    // Define headers
-    Map<String, String> headers = {
-      'Content-Type': 'multipart/form-data',
-      'Authorization': 'Bearer YOUR_TOKEN', // Add if required
-    };
+class Task32 extends StatefulWidget {
+  const Task32({super.key});
 
-    // Create the request body
-    var request = http.MultipartRequest('POST', url)
-      ..headers.addAll(headers)
-      ..fields['name'] = name
-      ..fields['email'] = email
-      ..files.add(await http.MultipartFile.fromPath(
-        'profile_pic',
-        profilePic.path,
-      ));
+  @override
+  State<Task32> createState() => _Task32State();
+}
 
-    // Send the request
-    final streamedResponse = await request.send();
-    if(streamedResponse.statusCode==200){
-      print('User Added Successfully');
-    }else
-    {
-      print("Failed to Add User");
-    }
+class _Task32State extends State<Task32> {
+  final k = GlobalKey<FormState>();
+  var a = TextEditingController();
+  var b = TextEditingController();
+  var c = TextEditingController();
+  var d = TextEditingController();
+  final db = DBhelper2();
+  bool _isPasswordVisible = false;
+  var error = "";
+  List<Map<String, dynamic>> l = [], g = [];
+  Uint8List? fileData;
 
-  }
-  static Future<List<dynamic>> getUserList() async {
-    final url=Uri.parse("$_baseUrl/get_user_list");
-    final response = await http.get(url);
-    if(response.statusCode==200){
-      return json.decode(response.body)['data'];
-    }
-    else
-      {throw Exception('Error 404');}
+  void clear() {
+    setState(() {
+      a.clear();
+      b.clear();
+      c.clear();
+      d.clear();
+      fileData = null;
+    });
   }
 
-  // Edit user details
-  static Future<http.Response> editUser({
-    required String userId,
-    required String name,
-    required String email,
-    required File profilePic,
-  }) async {
-    final Uri url = Uri.parse('$_baseUrl/edit_user_details');
+  @override
+  void dispose() {
+    super.dispose();
+    print("State Disposed");
+  }
 
-    Map<String, String> headers = {
-      'Content-Type': 'multipart/form-data',
-      'Authorization': 'Bearer YOUR_TOKEN', // Add if required
-    };
+  void set(String name, String email, String pass, Uint8List? imageData) {
+    setState(() {
+      b.text = name;
+      c.text = email;
+      d.text = pass;
+      fileData = imageData;
+    });
+  }
 
-    var request = http.MultipartRequest('POST', url)
-      ..headers.addAll(headers)
-      ..fields['user_id'] = userId
-      ..fields['name'] = name
-      ..fields['email'] = email
-      ..files.add(await http.MultipartFile.fromPath(
-        'profile_pic',
-        profilePic.path,
-      ));
-    final streamedResponse = await request.send();
-    return await http.Response.fromStream(streamedResponse);
+  Future<void> select() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
+    if (result != null) {
+      setState(() {
+        fileData = result.files.single.bytes;
+        error = "File selected.";
+      });
+    } else {
+      setState(() {
+        error = "No file selected.";
+      });
+    }
+  }
+
+  var rno;
+  var name = "", city = "", rnos = "", pass = "", f = "";
+
+  @override
+  void initState() {
+    super.initState();
+    disp();
+  }
+
+  void disp() async {
+    l = await db.display();
+    setState(() {});
+    print(l);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
+          children: [
+            Text("Task32 (SQLITE with Images)"),
+          ],
+        ),
+      ),
+      resizeToAvoidBottomInset: false,
+      body: Form(
+        key: k,
+        child: Column(
+          children: [
+            Expanded(
+                flex: 8,
+                child: Container(
+                  color: Colors.white,
+                  child: l.isEmpty
+                      ? Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.blue,
+                    ),
+                  )
+                      : ListView.builder(
+                    itemCount: l.length,
+                    itemBuilder: (context, index) {
+                      final b = l[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black12,
+                            border: Border.all(color: Colors.black, width: 3),
+                            borderRadius:
+                            const BorderRadius.all(Radius.circular(20)),
+                          ),
+                          child: ListTile(
+                            title: Text(
+                              "${b['name']}",
+                              style: TextStyle(
+                                fontSize:
+                                MediaQuery.of(context).size.width * 0.06,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            subtitle: Text(
+                              "${b['email']}",
+                              style: TextStyle(
+                                fontSize:
+                                MediaQuery.of(context).size.width * 0.03,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            leading: Container(
+                              width: 50,
+                              height: 50,
+                              child: b['image'] != null
+                                  ? Image.memory(
+                                b['image'] as Uint8List,
+                                fit: BoxFit.cover,
+                              )
+                                  : Icon(Icons.image_not_supported),
+                            ),
+                            trailing: Container(
+                              width: 100,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => task322(
+                                            id: b['rno'],
+                                            nameg: b['name'],
+                                            emailg: b['email'],
+                                            passg: b['password'],
+                                            imageg: b['image'],
+                                          ),
+                                        ),
+                                      );
+                                      disp();
+                                    },
+                                    icon: Icon(Icons.edit),
+                                  ),
+                                  IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text("Confirm Delete"),
+                                            content: const Text(
+                                                "Are you sure you want to delete this item?"),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: const Text("Cancel"),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                  setState(() {
+                                                    db.delete(b['rno']);
+                                                    disp();
+                                                    ScaffoldMessenger.of(context)
+                                                        .showSnackBar(SnackBar(
+                                                      content: Text(
+                                                        "Deleted Successfully",
+                                                        style: TextStyle(
+                                                            fontSize: MediaQuery.of(
+                                                                context)
+                                                                .size
+                                                                .width *
+                                                                0.05,
+                                                            fontWeight:
+                                                            FontWeight.bold,
+                                                            fontStyle:
+                                                            FontStyle.italic,
+                                                            color: Colors.white),
+                                                      ),
+                                                      duration:
+                                                      Duration(seconds: 2),
+                                                      shape: Border.all(
+                                                          color: Colors.black),
+                                                    ));
+                                                  });
+                                                },
+                                                style: TextButton.styleFrom(
+                                                    foregroundColor: Colors.red),
+                                                child: const Text("Delete"),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    icon: Icon(Icons.delete),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                )),
+            Expanded(
+                flex: 1,
+                child: Container(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                        alignment: Alignment.topRight,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color: Colors.black, width: 3),
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(15))),
+                          width: 65,
+                          height: 100,
+                          child: InkWell(
+                              onTap: () async {
+                                clear();
+                                await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Task321(),
+                                    ));
+                                disp();
+                              },
+                              child: Icon(
+                                Icons.add,
+                                size: 40,
+                              )),
+                        )),
+                  ),
+                ))
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> get(int rno) async {
+    g = await db.displayd(rno);
+    setState(() {});
+    print(g);
   }
 }
+

@@ -19,7 +19,14 @@ class _task231State extends State<task231> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text("It's Contain Many Widgets Like Container,Center,Padding,Align etc. Forward We Are Discuss that Container so We Display Other Widget ",style: TextStyle(fontSize: MediaQuery.of(context).size.width* 0.06,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold)),
+            child: Container(decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border.all(color: Colors.black, width: 3),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Text("It's Contain Many Widgets Like Container,Center,Padding,Align etc. Forward We Are Discuss that Container so We Display Other Widget ",style: TextStyle(fontSize: MediaQuery.of(context).size.width* 0.06,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold)),
+            )),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -32,8 +39,15 @@ class _task231State extends State<task231> {
                     color: Colors.white)),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(child: Text("Hello!!!",style: TextStyle(fontSize: MediaQuery.of(context).size.width* 0.06,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold))),
+            padding: const EdgeInsets.all(15.0),
+            child: Container(decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border.all(color: Colors.black, width: 3),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Center(child: Text("Hello!!!",style: TextStyle(fontSize: MediaQuery.of(context).size.width* 0.06,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold))),
+            )),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -46,8 +60,20 @@ class _task231State extends State<task231> {
                     color: Colors.white)),
           ),
           Padding(
-            padding: const EdgeInsets.all(35.0),
-            child: Container(color:Colors.blue,child: Text("It's Add Space Around Its Child",style: TextStyle(fontSize: MediaQuery.of(context).size.width* 0.06,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold,color: Colors.white))),
+            padding: const EdgeInsets.all(10.0),
+            child: Container(decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border.all(color: Colors.black, width: 3),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+              child: Padding(
+                padding: const EdgeInsets.all(35.0),
+                child: Container(color:Colors.blue,child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text("It's Add Space Around Its Child",style: TextStyle(fontSize: MediaQuery.of(context).size.width* 0.06,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold,color: Colors.white)),
+                )),
+              ),
+            ),
           ),
           Container(color:Colors.blue,child: Text("It's Without Padding",style: TextStyle(fontSize: MediaQuery.of(context).size.width* 0.06,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold,color: Colors.white))),
           Padding(
@@ -62,7 +88,14 @@ class _task231State extends State<task231> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Align(alignment: Alignment.bottomRight,child: Text("Use Of Align",style: TextStyle(fontSize: MediaQuery.of(context).size.width* 0.06,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold,color: Colors.black))),
+            child: Container(decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border.all(color: Colors.black, width: 3),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Align(alignment: Alignment.bottomRight,child: Text("Use Of Align",style: TextStyle(fontSize: MediaQuery.of(context).size.width* 0.06,fontStyle:FontStyle.italic,fontWeight: FontWeight.bold,color: Colors.black))),
+            )),
           ),
         ],
       ),

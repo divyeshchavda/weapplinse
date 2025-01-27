@@ -3,7 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
@@ -29,44 +28,47 @@ class _task41State extends State<task41> {
       appBar: AppBar(
         title: Text("WEEK 4"),
       ),
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, crossAxisSpacing: 8.0, mainAxisSpacing: 8.0),
-        itemCount: url.length,
-        itemBuilder: (context, index) {
-          final img = url[index];
-          return GestureDetector(
-            onTap: () async {
-              var response = await http.get(Uri.parse(img));
-              Directory? externalStorageDirectory =
+      body: ListView(
+        children: [
+          GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, crossAxisSpacing: 8.0, mainAxisSpacing: 8.0),
+            itemCount: url.length,
+            itemBuilder: (context, index) {
+              final img = url[index];
+              return GestureDetector(
+                onTap: () async {
+                  var response = await http.get(Uri.parse(img));
+                  Directory? externalStorageDirectory =
                   await getExternalStorageDirectory();
-              print(externalStorageDirectory);
-              File file = new File(
-                  path.join(externalStorageDirectory!.path, path.basename(img)));
-              await file.writeAsBytes(response.bodyBytes);
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: Text("Image saved Successfully!"),
-                    content: Image.file(file),
-                  )
+                  print(externalStorageDirectory);
+                  File file = new File(path.join(
+                      externalStorageDirectory!.path, path.basename(img)));
+                  await file.writeAsBytes(response.bodyBytes);
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: Text("Image saved Successfully!"),
+                        content: Image.file(file),
+                      ));
+                },
+                child: CachedNetworkImage(
+                  imageUrl: img,
+                  placeholder: (context, url) => Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  errorWidget: (context, url, error) => Center(
+                    child: Icon(
+                      Icons.error,
+                      size: 30,
+                    ),
+                  ),
+                  fit: BoxFit.cover,
+                ),
               );
             },
-            child: CachedNetworkImage(
-              imageUrl: img,
-              placeholder: (context, url) => Center(
-                child: CircularProgressIndicator(),
-              ),
-              errorWidget: (context, url, error) => Center(
-                child: Icon(
-                  Icons.error,
-                  size: 30,
-                ),
-              ),
-              fit: BoxFit.cover,
-            ),
-          );
-        },
+          ),
+        ]
       ),
     );
   }

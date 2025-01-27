@@ -22,8 +22,11 @@ class _task5State extends State<task5> {
             Text("___Debugging App??___",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.09,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,backgroundColor: Colors.black,color: Colors.white),),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("   By That We Can Know About error of our application if any bug found in that then we can identify it and solve it we debug in android studio in 2 way by run the program or by debug button",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.07,fontStyle: FontStyle.italic),),
-            )
+              child: Container(decoration: BoxDecoration(color: Colors.black12,border: Border.all(color: Colors.black,width: 3),borderRadius: BorderRadius.all(Radius.circular(20))),child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text("   By That We Can Know About error of our application if any bug found in that then we can identify it and solve it we debug in android studio in 2 way by run the program or by debug button",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.06,fontStyle: FontStyle.italic),),
+              )),
+            ),
           ],
         ),
       ),

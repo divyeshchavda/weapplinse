@@ -21,23 +21,49 @@ class _task222State extends State<task222> {
             padding: const EdgeInsets.all(8.0),
             child: Text("1. Row",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.09,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,backgroundColor: Colors.black,color: Colors.white)),
           ),
-          Row(
-            children: [
-              Text("Example 01,",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.06),),
-              Text("Example 02,",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.06),),
-              Text("Example 03,",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.06),),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(decoration: BoxDecoration(
+            color: Colors.black12,
+            border: Border.all(color: Colors.black, width: 3),
+            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Example 01,",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.05),),
+                    Text("Example 02,",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.05),),
+                    Text("Example 03,",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.05),),
+                  ],
+                ),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("2. Column",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.09,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,backgroundColor: Colors.black,color: Colors.white)),
           ),
-          Column(
-            children: [
-              Text("Example 01,",style: TextStyle(fontSize: 25),),
-              Text("Example 02,",style: TextStyle(fontSize: 25),),
-              Text("Example 03,",style: TextStyle(fontSize: 25),),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                border: Border.all(color: Colors.black, width: 3),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    Text("Example 01,",style: TextStyle(fontSize: 25),),
+                    Text("Example 02,",style: TextStyle(fontSize: 25),),
+                    Text("Example 03,",style: TextStyle(fontSize: 25),),
+                  ],
+                ),
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

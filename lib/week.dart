@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:weapplinse/Week 1//week1.dart';
 import 'package:weapplinse/Week%202/week2.dart';
 import 'package:weapplinse/Week%203/week3.dart';
+import 'package:weapplinse/Week%205/week5.dart';
 
 import 'Week 4/week4.dart';
 
@@ -30,12 +31,13 @@ class _weekState extends State<week> {
   void go3(){
     Navigator.push(context, MaterialPageRoute(builder: (context) => week4(),));
   }
+  void go4(){
+    Navigator.push(context, MaterialPageRoute(builder: (context) => week5(),));
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -60,7 +62,10 @@ class _weekState extends State<week> {
             onTap: go3,
             child: fun("WEEK 4"),
           ),
-          fun("WEEK 5"),
+          InkWell(
+            onTap: go4,
+            child: fun("WEEK 5"),
+          ),
           fun("WEEK 6"),
           fun("WEEK 7"),
           fun("WEEK 8"),

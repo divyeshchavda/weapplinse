@@ -20,7 +20,8 @@ void main() {
         routes: {
         "/":(context)=>week(),
         "/task72":(context)=>task72(),
-        "/task73":(context)=>task73()
+        "/task73":(context)=>task73(),
+        "/task7":(context)=>task7()
     },debugShowCheckedModeBanner: false,
         ));
   });

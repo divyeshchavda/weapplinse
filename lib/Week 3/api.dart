@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 class api{
-  static const String baseurl="http://192.168.1.2/blog/api";
+  static const String baseurl="http://192.168.29.41/blog/api";
   static Future<dynamic> add({required String name,required String email,required File pic}) async{
     var url = Uri.parse('$baseurl/add_user');
     Map<String, String> headers = {
@@ -34,21 +34,31 @@ class api{
       throw Exception('Failed to load users');
     }
   }
-  static Future<dynamic> edit({required String Id,required String name,required String email,required File pic}) async{
+  static Future<dynamic> edit({
+    required String Id,
+    required String name,
+    required String email,
+    File? pic,
+  }) async {
     var url = Uri.parse('$baseurl/edit_user_details');
     Map<String, String> headers = {
-      'Content-Type': 'multipart/form-data',
       'Authorization': 'Bearer YOUR_TOKEN', // Add if required
     };
+
     var request = http.MultipartRequest('POST', url)
       ..headers.addAll(headers)
       ..fields['user_id'] = Id
-      ..fields['name']=name
-      ..fields['email']=email
-      ..files.add(await http.MultipartFile.fromPath('profile_pic',pic.path ));
-    var response=await request.send();
+      ..fields['name'] = name
+      ..fields['email'] = email;
+
+    if (pic != null) {
+      request.files.add(await http.MultipartFile.fromPath('profile_pic', pic.path));
+    }
+
+    var response = await request.send();
     return await http.Response.fromStream(response);
   }
+
 
   static Future<void> delete({required String id}) async {
     final url = Uri.parse('$baseurl/delete_user');

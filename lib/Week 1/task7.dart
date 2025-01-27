@@ -57,15 +57,6 @@ class _task7State extends State<task7> {
             ElevatedButton(onPressed: () {
               Navigator.pop(context);
             }, child: Text("POP")),
-            ElevatedButton(onPressed: (){
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => task73(),));
-            }, child: Text("Push Replacement")),
-            ElevatedButton(onPressed: (){
-               Navigator.pushNamed(context, "/task72");
-            }, child: Text("Push Named")),
-            ElevatedButton(onPressed: (){
-              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => task72(),), (route) => false,);
-            }, child: Text("Pushremoveuntil")),
           ],
         ),
       ),

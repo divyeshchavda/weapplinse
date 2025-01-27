@@ -11,7 +11,7 @@ class task235 extends StatefulWidget {
 class _task235State extends State<task235> {
   bool change = false, change2 = false;
   String g1 = "";
-  String change3="Surat";
+  String change3 = "Surat";
 
   void fun(bool? value) {
     if (change == false) {
@@ -42,9 +42,10 @@ class _task235State extends State<task235> {
       g1 = value!;
     });
   }
-  void fun4(String? value){
+
+  void fun4(String? value) {
     setState(() {
-      change3=value!;
+      change3 = value!;
     });
   }
 
@@ -68,20 +69,30 @@ class _task235State extends State<task235> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text(change ? "Checked" : "Unchecked",
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold)),
-                Checkbox(activeColor: Colors.blue,
-                  checkColor: Colors.white,
-                  hoverColor: Colors.red,
-                  value: change,
-                  onChanged: fun,
+            child: Container(decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border.all(color: Colors.black, width: 3),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(change ? "Checked" : "Unchecked",
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold)),
+                    Checkbox(
+                      activeColor: Colors.blue,
+                      checkColor: Colors.white,
+                      hoverColor: Colors.red,
+                      value: change,
+                      onChanged: fun,
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
           Padding(
@@ -96,15 +107,28 @@ class _task235State extends State<task235> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text(change2 ? "ON" : "OFF",
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold)),
-                Switch(activeColor: Colors.white, activeTrackColor: Colors.blue,value: change2, onChanged: fun2),
-              ],
+            child: Container(decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border.all(color: Colors.black, width: 3),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(change2 ? "ON" : "OFF",
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold)),
+                    Switch(
+                        activeColor: Colors.white,
+                        activeTrackColor: Colors.blue,
+                        value: change2,
+                        onChanged: fun2),
+                  ],
+                ),
+              ),
             ),
           ),
           Padding(
@@ -119,41 +143,80 @@ class _task235State extends State<task235> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text(g1 != null ? "$g1" : "Not Selected",
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold)),
-                Radio(activeColor: Colors.blue,value: "Option 1", groupValue: g1, onChanged: fun3),
-              ],
+            child: Container(decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border.all(color: Colors.black, width: 3),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(g1 == "Option 1" ? "$g1" : "Not Selected",
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold)),
+                    Radio(
+                        activeColor: Colors.blue,
+                        value: "Option 1",
+                        groupValue: g1,
+                        onChanged: fun3),
+                  ],
+                ),
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text(g1 != null ? "$g1" : "Not Selected",
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold)),
-                Radio(activeColor: Colors.blue,value: "Option 2", groupValue: g1, onChanged: fun3),
-              ],
+            child: Container(decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border.all(color: Colors.black, width: 3),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(g1 == "Option 2" ? "$g1" : "Not Selected",
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold)),
+                    Radio(
+                        activeColor: Colors.blue,
+                        value: "Option 2",
+                        groupValue: g1,
+                        onChanged: fun3),
+                  ],
+                ),
+              ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text(g1 != null ? "$g1" : "Not Selected",
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold)),
-                Radio(activeColor: Colors.blue,value: "Option 3", groupValue: g1, onChanged: fun3),
-              ],
+            child: Container(decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border.all(color: Colors.black, width: 3),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(g1 == "Option 3" ? "$g1" : "Not Selected",
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width * 0.06,
+                            fontStyle: FontStyle.italic,
+                            fontWeight: FontWeight.bold)),
+                    Radio(
+                        activeColor: Colors.blue,
+                        value: "Option 3",
+                        groupValue: g1,
+                        onChanged: fun3),
+                  ],
+                ),
+              ),
             ),
           ),
           Padding(
@@ -168,14 +231,24 @@ class _task235State extends State<task235> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: DropdownButton(
-                value: change3,
-                items: [
-                  DropdownMenuItem(value: "Surat", child: Text("Surat")),
-                  DropdownMenuItem(value: "Bhavnagar", child: Text("Bhavnagar")),
-                  DropdownMenuItem(value: "Navsari", child: Text("Navsari"))
-                ],
-                onChanged: fun4),
+            child: Container(decoration: BoxDecoration(
+              color: Colors.black12,
+              border: Border.all(color: Colors.black, width: 3),
+              borderRadius: const BorderRadius.all(Radius.circular(20)),
+            ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DropdownButton(
+                    value: change3,
+                    items: [
+                      DropdownMenuItem(value: "Surat", child: Text("Surat")),
+                      DropdownMenuItem(
+                          value: "Bhavnagar", child: Text("Bhavnagar")),
+                      DropdownMenuItem(value: "Navsari", child: Text("Navsari"))
+                    ],
+                    onChanged: fun4),
+              ),
+            ),
           )
         ],
       ),

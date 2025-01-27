@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weapplinse/Week%201/week1.dart';
+import 'package:weapplinse/Week%202/page.dart';
+import 'package:weapplinse/Week%202/page2.dart';
+import 'package:weapplinse/Week%202/page3.dart';
 import 'package:weapplinse/Week%202/week2.dart';
 import 'package:weapplinse/week.dart';
 
@@ -34,23 +37,23 @@ class _task239State extends State<task239> {
             ),
             ListTile(
               leading: Icon(Icons.home),
-              title: Text("Home"),
+              title: Text("PAGE 1"),
               onTap: (){
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => week(),), (route)=>false);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => page(),));
               },
             ),
             ListTile(
               leading: Icon(Icons.looks_one),
-              title: Text("Week 1"),
+              title: Text("PAGE 2"),
               onTap: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => week1(),),);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => page2(),),);
               },
             ),
             ListTile(
               leading: Icon(Icons.looks_two),
-              title: Text("Week 2"),
+              title: Text("PAGE 3"),
               onTap: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => week2(),), );
+                Navigator.push(context, MaterialPageRoute(builder: (context) => page3(),), );
               },
             ),
           ],

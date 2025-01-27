@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weapplinse/Week%201/task7-3.dart';
 import 'package:weapplinse/Week%201/task7.dart';
 
 class task72 extends StatefulWidget {
@@ -24,7 +25,10 @@ class _task72State extends State<task72> {
               }, child: Text("POP")),
               ElevatedButton(onPressed: (){
                 Navigator.pushNamed(context, "/task73");
-              }, child: Text("Push Named")),
+              }, child: Text("Push Named=Page 3")),
+              ElevatedButton(onPressed: (){
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => task73(),));
+              }, child: Text("Push Replacement=Page 3")),
               ElevatedButton(onPressed: () {
                 if(Navigator.canPop(context)){
                   Navigator.pop(context);

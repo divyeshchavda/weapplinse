@@ -1,6 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weapplinse/Week%204/task4-1-1.dart';
 import 'package:weapplinse/Week%204/task4-1.dart';
+import 'package:weapplinse/Week%204/task4-2-1.dart';
+import 'package:weapplinse/Week%204/task4-2.dart';
+import 'package:weapplinse/Week%204/task4-3.dart';
+import 'package:weapplinse/Week%204/task4-4.dart';
+import 'package:weapplinse/Week%204/task4-5.dart';
+import 'package:weapplinse/Week%204/task4-6.dart';
 
 class week4 extends StatefulWidget {
   const week4({super.key});
@@ -14,7 +21,42 @@ class _week4State extends State<week4> {
     Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => task41(),
+          builder: (context) => task411(),
+        ));
+  }
+  void go2() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => task421(),
+        ));
+  }
+  void go3() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => task43(),
+        ));
+  }
+  void go4() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => task45(),
+        ));
+  }
+  void go5() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => task46(),
+        ));
+  }
+  void go6() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => task44(),
         ));
   }
   @override
@@ -27,7 +69,10 @@ class _week4State extends State<week4> {
         crossAxisCount: 3,
         children: [
           InkWell(onTap: go, child: fun("TASK 1")),
-
+          InkWell(onTap: go2, child: fun("TASK 2")),
+          InkWell(onTap: go3, child: fun("TASK 3")),
+          InkWell(onTap: go6, child: fun("TASK 4")),
+          InkWell(onTap: go4, child: fun("TASK 5")),
         ],
       ),
     );

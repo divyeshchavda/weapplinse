@@ -12,7 +12,7 @@ class task324 extends StatefulWidget {
 class _task324State extends State<task324> {
   List<Map<String, dynamic>> l = [];
 
-  final db = dbhelper();
+  final db = dbhelper2();
 
   @override
   void initState() {
@@ -49,7 +49,7 @@ class _task324State extends State<task324> {
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.bold)),
-                  trailing: Text("${b['city']}",
+                  trailing: Text("${b['email']}",
                       style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width * 0.06,
                           fontStyle: FontStyle.italic,

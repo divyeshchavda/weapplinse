@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:weapplinse/Week%203/task3-1-1.dart';
-import 'package:weapplinse/Week%203/test.dart';
+import 'package:weapplinse/Week%203/task3-1-2-2.dart';
 import 'package:weapplinse/Week%203/task3-1-2.dart';
 import 'package:weapplinse/Week%203/task3-1-3.dart';
 
@@ -40,6 +40,18 @@ class _task31State extends State<task31> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => task312(),));
                 },
                 child: Text("Swipe left/right/up/down",
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold))),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => task3122(),));
+                },
+                child: Text("Swipe left/right with gesture",
                     style: TextStyle(
                         fontSize: MediaQuery.of(context).size.width * 0.06,
                         fontStyle: FontStyle.italic,

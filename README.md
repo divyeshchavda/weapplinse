@@ -15,23 +15,70 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev/), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-@override
-void initState() {
-// TODO: implement initState
-super.initState();
-initialize();
-}
-void initialize(){
-disp();
-}
-Future<void> disp() async {
-final t=await db.display();
-setState((){
-l=t;
+
+Center(
+child: GestureDetector(onScaleStart: (ScaleStartDetails details){
+ps=s;
+},onScaleUpdate: (ScaleUpdateDetails details){
+setState(() {
+s=(ps*details.scale).clamp(min, max);
 });
-print(l);
-}
+},onScaleEnd: (ScaleEndDetails details){
+ps=1.0;
+},
+child: Transform.scale(scale: s,child: Image.asset("assets/img_1.png"))),
+),
 
+placelist3.isNotEmpty
+? Positioned(
+top: 155,
+child: Container(
+color: Colors.white,
+height: 150,
+width: 380,
+child: ListView.builder(
+itemCount: placelist3.length,
+itemBuilder: (context, index) {
+return ListTile(
+title: Text(placelist3[index]["description"]),
+onTap: () {
+String placeId = placelist3[index]["description"];
+String placeId2 = placelist3[index]["place_id"];
+setState(() {
+_endController.text=placeId;
+end=placeId;
+_endController.clear();
+});
+getPlaceDetails3(placeId2);
+},
+);
+},
+),
+)):
 
-InteractiveViewer(clipBehavior: Clip.none,minScale: 1,maxScale: 4,
-child: Image.network("https://img.freepik.com/free-photo/ferocious-lion-with-leaves-background_23-2150852411.jpg")),
+placelist2.isNotEmpty
+? Positioned(
+top: 155,
+child: Container(
+color: Colors.white,
+height: 150,
+width: 380,
+child: ListView.builder(
+itemCount: placelist2.length,
+itemBuilder: (context, index) {
+return ListTile(
+title: Text(placelist2[index]["description"]),
+onTap: () {
+String placeId = placelist2[index]["description"];
+String placeId2 = placelist2[index]["place_id"];
+setState(() {
+_startController.text=placeId;
+start=_startController.text;
+_startController.clear();
+});
+getPlaceDetails2(placeId2);
+},
+);
+},
+),
+)):

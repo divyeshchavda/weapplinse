@@ -18,17 +18,20 @@ class _task311State extends State<task311> {
       appBar: AppBar(
         title: Text("Task1(Pinch To Zoom-In/Out)"),
       ),
-      body: Center(
-        child: GestureDetector(onScaleStart: (ScaleStartDetails details){
-          ps=s;
-        },onScaleUpdate: (ScaleUpdateDetails details){
-          setState(() {
-            s=(ps*details.scale).clamp(min, max);
-          });
-        },onScaleEnd: (ScaleEndDetails details){
-          ps=1.0;
-        },
-            child: Transform.scale(scale: s,child: Image.asset("assets/img_1.png"))),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Center(
+          child: GestureDetector(onScaleStart: (ScaleStartDetails details){
+            ps=s;
+          },onScaleUpdate: (ScaleUpdateDetails details){
+            setState(() {
+              s=(ps*details.scale).clamp(min, max);
+            });
+          },onScaleEnd: (ScaleEndDetails details){
+            ps=1.0;
+          },
+              child: Transform.scale(scale: s,child: Image.asset("assets/img_1.png"))),
+        ),
       ),
     );
   }

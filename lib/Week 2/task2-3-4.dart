@@ -24,12 +24,21 @@ class _task234State extends State<task234> {
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  "It's Contain Many Widgets Like TextField,TextFormfield. Forward We Are Discuss that TextField so We Display Other Widget ",
-                  style: TextStyle(
-                      fontSize: MediaQuery.of(context).size.width * 0.06,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold)),
+              child: Container(decoration: BoxDecoration(
+                color: Colors.black12,
+                border: Border.all(color: Colors.black, width: 3),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      "It's Contain Many Widgets Like TextField,TextFormfield. Forward We Are Discuss that TextField so We Display Other Widget ",
+                      style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width * 0.06,
+                          fontStyle: FontStyle.italic,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -43,26 +52,39 @@ class _task234State extends State<task234> {
                         color: Colors.white)),
               ),
             ),
-            TextFormField(
-              controller: a,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return "Please Enter Name Its Required";
-                }
-                return null;
-              },
-                decoration: InputDecoration(
-                  labelText: 'DATA',
-                  hintText: 'Enter your DATA',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(decoration: BoxDecoration(
+                color: Colors.black12,
+                border: Border.all(color: Colors.black, width: 3),
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+              ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextFormField(
+                    controller: a,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please Enter Name Its Required";
+                      }
+                      return null;
+                    },
+                      decoration: InputDecoration(
+                      filled: true
+                      ,fillColor: Colors.white,labelText: 'DATA',
+                        hintText: 'Enter your DATA',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        prefixIcon: Icon(Icons.onetwothree),
+                      )
                   ),
-                  prefixIcon: Icon(Icons.onetwothree),
-                )
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
+              child: ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
                   onPressed: () {
                     setState(() {
                       b=a.text.toString();
@@ -83,7 +105,7 @@ class _task234State extends State<task234> {
                   },
                   child: Text(
                     "Submit",
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: Colors.white),
                   )),
             )
           ],
