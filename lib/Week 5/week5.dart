@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weapplinse/Week%205/task5-1.dart';
+import 'package:pocketcoach/Week%205/sign.dart';
+import 'package:pocketcoach/Week%205/task5-1.dart';
+import 'package:pocketcoach/Week%205/task5-2.dart';
 
 class week5 extends StatefulWidget {
   const week5({super.key});
@@ -17,6 +19,20 @@ class _week5State extends State<week5> {
           builder: (context) => task51(),
         ));
   }
+  void go2() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => task52(),
+        ));
+  }
+  void go3() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => sign(),
+        ));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +43,8 @@ class _week5State extends State<week5> {
         crossAxisCount: 3,
         children: [
           InkWell(onTap: go , child: fun("TASK 1")),
+          InkWell(onTap: go2 , child: fun("TASK 2")),
+          InkWell(onTap: go3 , child: fun("TASK 3")),
         ],
       ),
     );

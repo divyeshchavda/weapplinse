@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weapplinse/Week%202/task2-1-1.dart';
+
 import 'package:file_picker/file_picker.dart';
+import 'package:pocketcoach/Week%202/task2-1-1.dart';
 
 class task21 extends StatefulWidget {
   const task21({super.key});
@@ -44,206 +45,271 @@ class _task21State extends State<task21> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text("Task1(Data Pass Between 2 page)"),
       ),
-      body: Form(
-        key: k,
-        child: ListView(
-          children: [
-            Center(
-              child: Container(
-                child: Stack(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                              color: Colors.black12,
-                              border: Border.all(color: Colors.black, width: 3),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(15))),
-                          child: file != null
-                              ? Image.file(
-                                  file!,
-                                  fit: BoxFit.cover,
-                                )
-                              : Center(
-                                  child: Text(
-                                  "NO FILE SELECTED",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 12),
-                                ))),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Card(
+          elevation: 10,
+          shadowColor: Colors.black,
+          color: Colors.grey.shade300,
+          child: SingleChildScrollView(
+            child: Form(
+              key: k,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(height: 10,),
+                  Center(
+                    child: Container(
+                      child: GestureDetector(
+                        onTap: select,
+                        child: Stack(
+                          alignment: Alignment.bottomRight,
+                          children: [
+                            CircleAvatar(
+                                radius: 80,
+                                backgroundColor: Colors.blueAccent.withOpacity(0.2),
+                                backgroundImage: file != null
+                                    ? FileImage(file!)
+                                    : AssetImage("assets/img_7.png")
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: Colors.blueAccent,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Icon(Icons.camera_alt, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                    Positioned(
-                      top: 90,
-                      left: 80,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
-                              shape: CircleBorder()),
-                          onPressed: () {
-                            select();
-                          },
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.white,
-                            size: 20,
-                          )),
-                    )
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                  controller: a,
-                  validator: (a) {
-                    if (a == null || a.isEmpty) {
-                      return "Plz Enter Roll no Its Required";
-                    }
-                    return null;
-                  },
-                  maxLength: 10,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: 'Roll No',
-                    hintText: 'Enter your Roll No',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Card(
+                      shadowColor: Colors.black,
+                      elevation: 10,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(children:[
+                          Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: TextFormField(
+                            validator: (a) {
+                              if (a == null || a.isEmpty) {
+                                return "Plz Enter Roll no Its Required";
+                              }
+                              return null;
+                            },
+                            maxLength: 10,
+                            controller: a,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12)
+                              ),
+                              labelText: 'Roll No',
+                              hintText: 'Enter your Roll No',
+                              prefixIcon: Icon(Icons.onetwothree),
+                              filled: true,
+                              fillColor: Colors.white,
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(color: Colors.blueAccent),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(12),
+                                borderSide: BorderSide(color: Colors.blue, width: 2),
+                              ),
+                            ),
+                          ),
+                        ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              validator: (a) {
+                                if (a == null || a.isEmpty) {
+                                  return "Plz Enter Name Its Required";
+                                }
+                                return null;
+                              },
+                              controller: b,
+                              maxLength: 20,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
+                                labelText: 'Name',
+                                hintText: 'Enter your Name',
+                                prefixIcon: Icon(Icons.person),
+                                filled: true,
+                                fillColor: Colors.white,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(color: Colors.blueAccent),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(color: Colors.blue, width: 2),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              controller: c,
+                              validator: (a) {
+                                if (a == null || a.isEmpty) {
+                                  return "Plz Enter Its Required";
+                                }
+                                return null;
+                              },
+                              maxLength: 20,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
+                                labelText: 'City',
+                                hintText: 'Enter your City',
+                                prefixIcon: Icon(Icons.location_city),
+                                filled: true,
+                                fillColor: Colors.white,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(color: Colors.blueAccent),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(color: Colors.blue, width: 2),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextFormField(
+                              controller: d,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter a password';
+                                }
+                                if (value.length < 8) {
+                                  return """Password must contain at least 8
+characters, uppercase, lowercase, 
+digit, and special character""";
+                                }
+                                if (!RegExp(r'[A-Z]').hasMatch(value)) {
+                                  return """Password must contain at least 8 
+characters, uppercase, lowercase, 
+digit, and special character""";
+                                }
+                                if (!RegExp(r'[a-z]').hasMatch(value)) {
+                                  return """Password must contain at least 8 
+characters, uppercase, lowercase, 
+digit, and special character""";
+                                }
+                                if (!RegExp(r'[0-9]').hasMatch(value)) {
+                                  return """Password must contain at least 8 characters, 
+uppercase, lowercase, digit, and special character""";
+                                }
+                                if (!RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
+                                  return """Password must contain at least 8 characters, 
+uppercase, lowercase, digit, and special character""";
+                                }
+                                return null;
+                              },
+                              maxLength: 15,
+                              obscureText: show,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12)
+                                ),
+                                suffixIcon: IconButton(
+                                    onPressed: () {
+                                      if (show == true) {
+                                        setState(() {
+                                          show = false;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          show = true;
+                                        });
+                                      }
+                                    },
+                                    icon: show == true
+                                        ? Icon(Icons.remove_red_eye)
+                                        : Icon(Icons.remove_red_eye_outlined)),
+                                labelText: 'Password',
+                                hintText: 'Enter your Password',
+                                prefixIcon: Icon(Icons.password),
+                                filled: true,
+                                fillColor: Colors.white,
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(color: Colors.blueAccent),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  borderSide: BorderSide(color: Colors.blue, width: 2),
+                                ),
+                              ),
+                            ),
+                          ),]),
+                      ),
                     ),
-                    prefixIcon: Icon(Icons.onetwothree),
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                  validator: (a) {
-                    if (a == null || a.isEmpty) {
-                      return "Plz Enter Name Its Required";
-                    }
-                    return null;
-                  },
-                  controller: b,
-                  maxLength: 20,
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                    hintText: 'Enter your Name',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    prefixIcon: Icon(Icons.person),
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                  controller: c,
-                  validator: (a) {
-                    if (a == null || a.isEmpty) {
-                      return "Plz Enter Its Required";
-                    }
-                    return null;
-                  },
-                  maxLength: 20,
-                  decoration: InputDecoration(
-                    labelText: 'City',
-                    hintText: 'Enter your City',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    prefixIcon: Icon(Icons.location_city),
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextFormField(
-                  controller: d,
-                  validator: (a) {
-                    if (a == null || a.isEmpty) {
-                      return 'Password is required';
-                    }
-                    if (!RegExp(
-                            r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')
-                        .hasMatch(a!)) {
-                      return """Password is Must Contain 8 character,uppercase,
-lowercase,digit and special character""";
-                    }
-                    return null;
-                  },
-                  maxLength: 15,
-                  obscureText: show,
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(style: ElevatedButton.styleFrom(elevation: 10,shadowColor: Colors.black,shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),backgroundColor: Colors.blueAccent),
                         onPressed: () {
-                          if (show == true) {
-                            setState(() {
-                              show = false;
-                            });
-                          } else {
-                            setState(() {
-                              show = true;
-                            });
+                          if (k.currentState?.validate() ?? false) {
+                            if (file != null) {
+                              setState(() {
+                                f = file!;
+                                rnos = a.text.toString();
+                                name = b.text.toString();
+                                city = c.text.toString();
+                                pass = d.text.toString();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => task211(
+                                        rno: rnos,
+                                        name: name,
+                                        city: city,
+                                        pass: pass,
+                                        file: f!,
+                                      ),
+                                    ));
+                                a.clear();
+                                b.clear();
+                                c.clear();
+                                d.clear();
+                                file = null;
+                              });
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("Enter File Also"),duration: Duration(milliseconds: 300),));
+                            }
                           }
                         },
-                        icon: show == true
-                            ? Icon(Icons.remove_red_eye)
-                            : Icon(Icons.remove_red_eye_outlined)),
-                    labelText: 'Password',
-                    hintText: 'Enter your Password',
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    prefixIcon: Icon(Icons.password),
-                  )),
+                        child: Text("Submit",
+                            style: TextStyle(color: Colors.white,
+                                fontSize: MediaQuery.of(context).size.width * 0.06,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold))),
+                  )
+                ],
+              ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: () {
-                    if (k.currentState?.validate() ?? false) {
-                      if (file != null) {
-                        setState(() {
-                          f = file!;
-                          rnos = a.text.toString();
-                          name = b.text.toString();
-                          city = c.text.toString();
-                          pass = d.text.toString();
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => task211(
-                                  rno: rnos,
-                                  name: name,
-                                  city: city,
-                                  pass: pass,
-                                  file: f!,
-                                ),
-                              ));
-                          a.clear();
-                          b.clear();
-                          c.clear();
-                          d.clear();
-                          file = null;
-                        });
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Enter File Also")));
-                      }
-                    }
-                  },
-                  child: Text("Submit",
-                      style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.bold))),
-            )
-          ],
+          ),
         ),
       ),
     );

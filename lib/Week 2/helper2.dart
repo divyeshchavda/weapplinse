@@ -16,36 +16,43 @@ class _btnState extends State<btn> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        style: ElevatedButton.styleFrom(backgroundColor: widget.color),
-        onPressed: () {
-          widget.Callback!();
-        },
-        child: Text(
-          widget.btnname,
-          style: TextStyle(color: Colors.white),
-        ));
+      style: ElevatedButton.styleFrom(backgroundColor: widget.color),
+      onPressed: () {
+        widget.Callback!();
+      },
+      child: Text(
+        widget.btnname,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
   }
 }
+
 class customtext extends StatefulWidget {
   final String label;
   final String? hint;
   final TextEditingController? controller;
   final Icon? icon;
 
-
-  customtext({required this.label,required this.hint,required this.controller,required this.icon});
+  customtext(
+      {required this.label,
+      required this.hint,
+      required this.controller,
+      required this.icon});
 
   @override
   State<customtext> createState() => _customtextState();
 }
 
 class _customtextState extends State<customtext> {
-
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: widget.controller,
-      decoration: InputDecoration(filled: true,
+      keyboardType: TextInputType.number,
+      maxLength: 5,
+      decoration: InputDecoration(
+        filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -63,9 +70,11 @@ class customtext2 extends StatefulWidget {
   final TextEditingController? controller;
   final Icon? icon;
 
-
-  customtext2({required this.label,required this.hint,required this.controller,required this.icon});
-
+  customtext2(
+      {required this.label,
+      required this.hint,
+      required this.controller,
+      required this.icon});
 
   @override
   State<customtext2> createState() => _customtext2State();
@@ -75,11 +84,17 @@ class _customtext2State extends State<customtext2> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: widget.controller,style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.05,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,color: Colors.black),
-      decoration: InputDecoration(filled: true,
+      controller: widget.controller,
+      style: TextStyle(
+          fontSize: MediaQuery.of(context).size.width * 0.05,
+          fontWeight: FontWeight.bold,
+          color: Colors.black),
+      decoration: InputDecoration(
+        filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(50)),borderSide: BorderSide(color: Colors.blue)),
+            borderRadius: BorderRadius.all(Radius.circular(50)),
+            borderSide: BorderSide(color: Colors.blue)),
         label: Text(widget.label),
         hintText: widget.hint,
         prefixIcon: widget.icon,

@@ -1,11 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weapplinse/Week%201/week1.dart';
-import 'package:weapplinse/Week%202/page.dart';
-import 'package:weapplinse/Week%202/page2.dart';
-import 'package:weapplinse/Week%202/page3.dart';
-import 'package:weapplinse/Week%202/week2.dart';
-import 'package:weapplinse/week.dart';
+import 'package:pocketcoach/Week%202/page.dart';
+import 'package:pocketcoach/Week%202/page2.dart';
+import 'package:pocketcoach/Week%202/page3.dart';
 
 class task239 extends StatefulWidget {
   const task239({super.key});
@@ -25,9 +22,10 @@ class _task239State extends State<task239> {
         shape: Border.all(style: BorderStyle.solid),backgroundColor: Colors.white,
         child: ListView(
           children: [
-            DrawerHeader(child: Column(
+            DrawerHeader(
+                child: Column(
               children: [
-                CircleAvatar(radius: 50,backgroundImage: AssetImage("assets/img.png"),),
+                CircleAvatar(radius: 50,backgroundImage: AssetImage("assets/lambo.jpeg"),),
                 Text("Divyesh Chavda",style: TextStyle(
                     fontSize: MediaQuery.of(context).size.width * 0.03,
                     fontStyle: FontStyle.italic,

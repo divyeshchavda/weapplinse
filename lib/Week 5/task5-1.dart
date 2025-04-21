@@ -1,16 +1,23 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
+import 'package:open_file/open_file.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:pocketcoach/Week%205/play.dart';
+
 
 class task51 extends StatefulWidget {
-  const task51({super.key});
-
   @override
-  State<task51> createState() => _task51State();
+  _task51State createState() => _task51State();
 }
 
 class _task51State extends State<task51> {
+  List<FileSystemEntity> audioFiles = [];
   final AudioPlayer _audioPlayer = AudioPlayer();
   String? _audioPath;
   bool _isPlaying = false;
@@ -22,10 +29,41 @@ class _task51State extends State<task51> {
 
   String _errorMessage = ""; // Error message for out of range validation
 
+
+
+  @override
+  void dispose() {
+    _audioPlayer.dispose();
+    super.dispose();
+  }
+  String _status = "Permission not requested";
+
+  Future<void> requestStoragePermission() async {
+    if (await Permission.storage.isGranted ||
+        await Permission.manageExternalStorage.isGranted ||
+        await Permission.mediaLibrary.isGranted) {
+      setState(() => _status = "Permission already granted");
+      return;
+    }
+
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.audio, // For accessing audio files
+      Permission.photos, // For images (optional)
+      Permission.videos, // For video files (optional)
+    ].request();
+
+    if (statuses[Permission.audio]!.isGranted) {
+      setState(() => _status = "Permission Granted");
+    } else {
+      setState(() => _status = "Permission Denied Please Accept It in Settings");
+    }
+  }
   @override
   void initState() {
     super.initState();
-
+    print(audioFiles);
+    getMusicFiles();
+    requestStoragePermission();
     _audioPlayer.onDurationChanged.listen((Duration d) {
       setState(() {
         _duration = d;
@@ -48,187 +86,120 @@ class _task51State extends State<task51> {
     });
   }
 
-  // Pick an audio file
-  Future<void> _pickFile() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.audio,
-    );
-    if (result != null) {
-      setState(() {
-        _audioPath = result.files.single.path;
-      });
+  Future<void> getMusicFiles() async {
+    var status = await Permission.audio.status;
+    if (status.isDenied) {
+      status = await Permission.audio.request();
     }
-  }
+    if (status.isGranted) {
+      Directory musicDir = Directory("/storage/emulated/0/Music/");
+      if (musicDir.existsSync()) {
+        List<FileSystemEntity> files = musicDir.listSync(recursive: false);
+        List<FileSystemEntity> audioList = files.where((file) {
+          String path = file.path.toLowerCase();
+          return path.endsWith(".mp3") || path.endsWith(".wav") || path.endsWith(".m4a");
+        }).toList();
 
-  // Play/Pause the audio
-  Future<void> _togglePlayPause() async {
-    if (_audioPath == null) return;
-
-    if (_isPlaying) {
-      await _audioPlayer.pause();
+        setState(() {
+          List<FileSystemEntity> sortedAudioFiles = audioList;
+          audioFiles= sortedAudioFiles..sort((a, b) {
+            String nameA = a.path.split('/').last.toLowerCase(); // Extract filename and convert to lowercase
+            String nameB = b.path.split('/').last.toLowerCase();
+            return nameA.compareTo(nameB); // Compare alphabetically
+          });
+        });
+        print(audioFiles);
+      } else {
+        print("Music folder not found!");
+      }
+    } else if (status.isPermanentlyDenied) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text(
+              'Permission permanently denied. Enable it in app settings.'),
+          action: SnackBarAction(
+            label: 'Open Settings',
+            onPressed: () {
+              openAppSettings();
+            },
+          ),
+        ),
+      );
     } else {
-      await _audioPlayer.play(DeviceFileSource(_audioPath!));
-    }
-
-    setState(() {
-      _isPlaying = !_isPlaying;
-      _isStopped = false;
-    });
-  }
-
-  // Stop the audio
-  Future<void> _stopAudio() async {
-    await _audioPlayer.stop();
-    setState(() {
-      _isPlaying = false;
-      _isStopped = true;
-      _currentPosition = 0.0;
-    });
-  }
-
-  // Seek the audio to a specific position
-  void _seekTo(double value) {
-    if (value < 0.0) {
-      setState(() {
-        _errorMessage = "Cannot go below 0 seconds.";
-      });
-      value = 0.0;  // Ensure the position doesn't go below 0
-    } else if (value > _duration.inSeconds.toDouble()) {
-      setState(() {
-        _errorMessage = "Cannot go beyond audio duration.";
-      });
-      value = _duration.inSeconds.toDouble();  // Ensure the position doesn't go beyond the audio duration
-    } else {
-      setState(() {
-        _errorMessage = "";  // Clear error message if within range
-      });
-    }
-    _audioPlayer.seek(Duration(seconds: value.toInt()));
-  }
-
-  // Change volume of audio playback
-  void _setVolume(double value) {
-    _audioPlayer.setVolume(value);
-    if(value>0.0 && value<1.00){
-      setState(() {
-        _volume = value;
-      });
-    }
-    else{
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Invalid")));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Phone Storage permission denied.')),
+      );
     }
   }
 
-  // Format Duration
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, "0");
-    final minutes = twoDigits(duration.inMinutes);
-    final seconds = twoDigits(duration.inSeconds.remainder(60));
-    return "$minutes:$seconds";
-  }
 
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Audio Player')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            // Button to pick file
-            ElevatedButton(
-              onPressed: _pickFile,
-              child: Text("Pick an Audio File"),
-            ),
-            if (_audioPath != null)
-              Text(
-                "Selected file: ${_audioPath!.split('/').last}",
-                style: TextStyle(fontSize: 16),
-              ),
-            SizedBox(height: 20),
-
-            // Error message for invalid seek positions
-            if (_errorMessage.isNotEmpty)
-              Text(
-                _errorMessage,
-                style: TextStyle(color: Colors.red, fontSize: 16),
-              ),
-            SizedBox(height: 20),
-
-            // Playback controls (Play/Pause, Stop, Seekbar)
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.replay_10),
-                  onPressed: () {
-                    _seekTo(_currentPosition - 10);
+      appBar: AppBar(title: Text("Music Files")),
+      body: audioFiles.isEmpty
+          ? Center(child: Text("No audio files found"))
+          : ListView.builder(
+        itemCount: audioFiles.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Card(
+              color: Colors.white,
+              elevation: 10,
+              child: ListTile(minTileHeight: 100,
+                title: Text(audioFiles[index].path.split('/').last.length<=25?audioFiles[index].path.split('/').last:"${audioFiles[index].path.split('/').last.substring(0,25)}...mp3"),
+                leading: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Lottie.asset("assets/audio.json")
+                ),
+                subtitle: Text("Music"),
+                onTap: (){
+                showDialog(context: context, builder: (context) {
+                  return AlertDialog(scrollable: true,
+                    title: Text("Choose Player"),
+                    content: Column(
+                      children: [
+                        GestureDetector(
+                          onTap: (){
+                            OpenFile.open(audioFiles[index].path);
+                            Navigator.pop(context);
+                          },
+                          child: Card(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                            child: Container(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(child: Text("Default Audio Player", style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color: Color(0xFF3A2764)),)),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10,),
+                        GestureDetector(
+                          onTap: (){
+                            print(audioFiles[index].path.toString());
+                            Navigator.pop(context);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => play(name:audioFiles[index].path.split('/').last.toString(),path: audioFiles[index].path, audio: audioFiles, ),));
+                          },
+                          child: Card(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                            child: Container(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Center(child: Text("Custom Audio Player", style: GoogleFonts.poppins(fontWeight: FontWeight.w500,fontSize: 18,color: Color(0xFF3A2764)),)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },);
                   },
-                ),
-                IconButton(
-                  icon: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
-                  onPressed: _togglePlayPause,
-                ),
-                IconButton(
-                  icon: Icon(Icons.stop),
-                  onPressed: _stopAudio,
-                ),
-                IconButton(
-                  icon: Icon(Icons.forward_10),
-                  onPressed: () {
-                    _seekTo(_currentPosition + 10);
-                  },
-                ),
-              ],
+              ),
             ),
-
-            // Playback Slider (Position of the audio)
-            Slider(
-              value: _currentPosition,
-              min: 0.0,
-              max: _duration.inSeconds.toDouble(),
-              onChanged: (value) {
-                _seekTo(value);
-              },
-            ),
-
-            // Duration display
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(_formatDuration(_currentDuration)),
-                Text(_formatDuration(_duration)),
-              ],
-            ),
-
-            // Volume control
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.volume_down),
-                  onPressed: () => _setVolume(_volume - 0.1),
-                ),
-                Slider(
-                  value: _volume,
-                  min: 0.0,
-                  max: 1.0,
-                  onChanged: _setVolume,
-                ),
-                IconButton(
-                  icon: Icon(Icons.volume_up),
-                  onPressed: () => _setVolume(_volume + 0.1),
-                ),
-              ],
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

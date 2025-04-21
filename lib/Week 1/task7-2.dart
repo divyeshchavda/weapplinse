@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weapplinse/Week%201/task7-3.dart';
-import 'package:weapplinse/Week%201/task7.dart';
+import 'package:pocketcoach/Week%201/task7-3.dart';
+
 
 class task72 extends StatefulWidget {
+  const task72({super.key});
 
-  task72( {super.key});
   @override
   State<task72> createState() => _task72State();
 }
@@ -15,44 +15,74 @@ class _task72State extends State<task72> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Page 2"),
+        title: Text("Page 2",
+            style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.bold)),
+        backgroundColor: Colors.blue,
+        centerTitle: true,
+        elevation: 5,
+        shadowColor: Colors.black54,
       ),
-      body:
-          Center(child: Column(
-            children: [
-              ElevatedButton(onPressed: () {
-                Navigator.pop(context);
-              }, child: Text("POP")),
-              ElevatedButton(onPressed: (){
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () {
                 Navigator.pushNamed(context, "/task73");
-              }, child: Text("Push Named=Page 3")),
-              ElevatedButton(onPressed: (){
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => task73(),));
-              }, child: Text("Push Replacement=Page 3")),
-              ElevatedButton(onPressed: () {
-                if(Navigator.canPop(context)){
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                elevation: 3,
+              ),
+              child: Text("Push Named = Page 3"),
+            ),
+            SizedBox(height: 15),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => task713()),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                elevation: 3,
+              ),
+              child: Text("Push Replacement = Page 3"),
+            ),
+            SizedBox(height: 15),
+            OutlinedButton(
+                onPressed: () {
                   Navigator.pop(context);
-                }
-                else
-                  {
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text("It Cant Pop Because It Doesnt have Any Parent Route",
-                          style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.width * 0.05,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              color: Colors.white)),
-                      duration: Duration(seconds: 2),
-                      shape: Border.all(color: Colors.black),
-                    ));
-                  }
-              }, child: Text("can POP?")),
-              ElevatedButton(onPressed: () {
-                Navigator.maybePop(context);
-              }, child: Text("Maybe Pop")),
-            ],
-          )),
+                },
+                style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.blue,
+                    side: BorderSide(color: Colors.blue, width: 2),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ), padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),), child: Text("POP"),),
+            SizedBox(height: 15),
+
+          ],
+        ),
+      ),
     );
   }
-
 }

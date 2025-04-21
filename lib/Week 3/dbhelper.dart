@@ -63,8 +63,27 @@ class dbhelper2 {
   }
 
   // Display data for a specific ID
-  Future<List<Map<String, dynamic>>> displayd(int i) async {
+  Future<List<Map<String, dynamic>>> displayd(String e) async {
     final db = await getdb();
-    return db.query('std_de', where: 'rno = ?', whereArgs: [i]);
+    return db.query('std_de', where: 'email = ?', whereArgs: [e]);
   }
+  Future<bool> checkEmailExists(String email) async {
+    final db = await getdb();
+    var result = await db.query(
+      'std_de',
+      where: 'email = ?',
+      whereArgs: [email],
+    );
+    return result.isNotEmpty;
+  }
+  Future<bool> checkEmailExists2(String email, {int? excludeId}) async {
+    final db = await getdb();
+    var result = await db.query(
+      'std_de',
+      where: excludeId != null ? 'email = ? AND rno != ?' : 'email = ?',
+      whereArgs: excludeId != null ? [email, excludeId] : [email],
+    );
+    return result.isNotEmpty; // Return true if email exists, false otherwise
+  }
+
 }

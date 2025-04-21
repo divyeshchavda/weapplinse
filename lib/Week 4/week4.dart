@@ -1,13 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weapplinse/Week%204/task4-1-1.dart';
-import 'package:weapplinse/Week%204/task4-1.dart';
-import 'package:weapplinse/Week%204/task4-2-1.dart';
-import 'package:weapplinse/Week%204/task4-2.dart';
-import 'package:weapplinse/Week%204/task4-3.dart';
-import 'package:weapplinse/Week%204/task4-4.dart';
-import 'package:weapplinse/Week%204/task4-5.dart';
-import 'package:weapplinse/Week%204/task4-6.dart';
+import 'package:pocketcoach/Week%204/task4-1-1.dart';
+import 'package:pocketcoach/Week%204/task4-2-1.dart';
+import 'package:pocketcoach/Week%204/task4-3.dart';
+import 'package:pocketcoach/Week%204/task4-4.dart';
+import 'package:pocketcoach/Week%204/task4-5.dart';
+import 'package:pocketcoach/Week%204/task4-6.dart';
+
+import 'Pagination.dart';
+
 
 class week4 extends StatefulWidget {
   const week4({super.key});
@@ -59,6 +60,13 @@ class _week4State extends State<week4> {
           builder: (context) => task44(),
         ));
   }
+  void go7() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PaginationDemo(),
+        ));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,6 +81,7 @@ class _week4State extends State<week4> {
           InkWell(onTap: go3, child: fun("TASK 3")),
           InkWell(onTap: go6, child: fun("TASK 4")),
           InkWell(onTap: go4, child: fun("TASK 5")),
+          InkWell(onTap: go7, child: fun("Pagination")),
         ],
       ),
     );

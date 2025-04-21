@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weapplinse/Week%201/week1.dart';
-import 'package:weapplinse/Week%202/week2.dart';
-import 'package:weapplinse/week.dart';
 
 class task2310 extends StatefulWidget {
   @override

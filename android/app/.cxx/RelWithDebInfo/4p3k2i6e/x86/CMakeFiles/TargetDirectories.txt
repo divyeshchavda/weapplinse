@@ -1,0 +1,2 @@
+D:/Android/weapplinse/android/app/.cxx/RelWithDebInfo/4p3k2i6e/x86/CMakeFiles/edit_cache.dir
+D:/Android/weapplinse/android/app/.cxx/RelWithDebInfo/4p3k2i6e/x86/CMakeFiles/rebuild_cache.dir

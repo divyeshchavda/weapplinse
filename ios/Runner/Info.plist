@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -20,14 +22,98 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.352083475306-qc23ulef4696hdgs7t20037ip7qg2b11</string>
+				<string>fb2283451722032617</string>
+			</array>
+		</dict>
+	</array>
+    <key>NSUserTrackingUsageDescription</key>
+    <string>This identifier will be used to deliver personalized ads to you.</string>
+    <key>SKAdNetworkItems</key>
+    <array>
+        <dict>
+            <key>SKAdNetworkIdentifier</key>
+            <string>v9wttpbfk9.skadnetwork</string>
+        </dict>
+    </array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<true/>
+	<key>FacebookAppID</key>
+	<string>2283451722032617</string>
+	<key>FacebookClientToken</key>
+	<string>ca52a442608d5d36ca0f342453c875ff</string>
+	<key>FacebookDisplayName</key>
+	<string>Weapplinse</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<true/>
+	<key>FirebaseAutomaticScreenReportingEnabled</key>
+	<false/>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-3940256099942544~3347511713</string>
+	<key>GMSApiKey</key>
+	<string>AIzaSyCH4sI3MVO6fCBDsRAuOVnOz0vHlBO82-c</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>App uses Bluetooth to communicate with nearby devices.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>App needs access to your calendar for alarms and reminders.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>App needs access to the camera to capture photos or videos.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>App needs access to your contacts to make calls.</string>
+	<key>NSDocumentDirectoryUsageDescription</key>
+	<string>App needs access to files stored on your device.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>App requires continuous access to your location for background services.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>App requires access to your location in the background.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>App uses your location to provide location-based services.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>App requires microphone access to record audio.</string>
+	<key>NSPhoneUsageDescription</key>
+	<string>App requires access to initiate phone calls.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>App requires access to save media to your photo library.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>App needs access to your photo library to upload and save images.</string>
+	<key>NSPushNotificationsUsageDescription</key>
+	<string>App requires permission to send notifications.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+		<string>audio</string>
+		<string>fetch</string>
+		<string>processing</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIStatusBarHidden</key>
+	<false/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -41,9 +127,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<key>io.flutter.embedded_views_preview</key>
 	<true/>
 </dict>
 </plist>

@@ -17,9 +17,9 @@ class _task221State extends State<task221> {
       ),
       body: ListView(
         children: [
-          Text("1. Text",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.09,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,backgroundColor: Colors.black,color: Colors.white)),
+          Text("1. Text",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.09,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,backgroundColor: Colors.black,color: Colors.white),),
           SizedBox(height: 30,),
-          Text("2. Image",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.09,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,backgroundColor: Colors.black,color: Colors.white)),
+          Text("2. Image",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.09,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,backgroundColor: Colors.black,color: Colors.white),),
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Container(decoration: BoxDecoration(
@@ -28,7 +28,7 @@ class _task221State extends State<task221> {
               borderRadius: const BorderRadius.all(Radius.circular(20)),
             ),child: Padding(
               padding: const EdgeInsets.all(30.0),
-              child: Image.asset("assets/1.jpg"),
+              child: Image.asset("assets/1.jpg",),
             )),
           ),
           Text("3. Icon",style: TextStyle(fontSize: MediaQuery.of(context).size.width*0.09,fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,backgroundColor: Colors.black,color: Colors.white)),

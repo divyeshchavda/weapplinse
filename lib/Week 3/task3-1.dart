@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weapplinse/Week%203/task3-1-1.dart';
-import 'package:weapplinse/Week%203/task3-1-2-2.dart';
-import 'package:weapplinse/Week%203/task3-1-2.dart';
-import 'package:weapplinse/Week%203/task3-1-3.dart';
+import 'package:pocketcoach/Week%203/task3-1-1.dart';
+import 'package:pocketcoach/Week%203/task3-1-2-2.dart';
+import 'package:pocketcoach/Week%203/task3-1-2.dart';
+import 'package:pocketcoach/Week%203/task3-1-3.dart';
+
 
 class task31 extends StatefulWidget {
   const task31({super.key});

@@ -11,7 +11,7 @@ class task311 extends StatefulWidget {
 class _task311State extends State<task311> {
   var s = 1.0;
   var ps = 1.0,min=1.0,max=9.0;
-
+  bool check=true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,22 @@ class _task311State extends State<task311> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
-          child: GestureDetector(onScaleStart: (ScaleStartDetails details){
+          child: GestureDetector(
+              onDoubleTap: (){
+                if(check==true){
+                  setState(() {
+                    s=4.0;
+                    check=false;
+                  });
+                }
+                else{
+                  setState(() {
+                    s=1.0;
+                    check=true;
+                  });
+                }
+              },
+              onScaleStart: (ScaleStartDetails details){
             ps=s;
           },onScaleUpdate: (ScaleUpdateDetails details){
             setState(() {

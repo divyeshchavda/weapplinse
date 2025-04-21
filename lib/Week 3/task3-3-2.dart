@@ -1,3 +1,4 @@
+import 'dart:core';
 import 'dart:io';
 import 'dart:ui';
 
@@ -5,7 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
 import 'api.dart';
+
 class task332 extends StatefulWidget {
   const task332({super.key});
 
@@ -36,7 +39,8 @@ class _task332State extends State<task332> {
   }
 
   Future<void> selectFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.image);
 
     if (result != null) {
       setState(() {
@@ -58,7 +62,7 @@ class _task332State extends State<task332> {
 
     if (emailExists) {
       setState(() {
-        error = "Email already exists. Please use a different email.";
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Email already exists. Please use a different email.")));
       });
     } else {
       if (formKey.currentState?.validate() ?? false) {
@@ -103,117 +107,110 @@ class _task332State extends State<task332> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: Text("ADD DATA"),),
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(decoration: BoxDecoration(
-          color: Colors.black12,
-          border: Border.all(color: Colors.black, width: 3),
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-        ),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  Text("INSERT DATA",style: TextStyle(
-                      fontSize:
-                      MediaQuery.of(context).size.width *
-                          0.10,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold),),
-                  const SizedBox(height: 5),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      validator: (value) => value == null || value.isEmpty
-                          ? "Please enter a name"
-                          : null,
-                      controller: nameController,
-                      maxLength: 30,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: 'Name',
-                        hintText: 'Enter your name',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        prefixIcon: const Icon(Icons.person),
-                      ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(title: Text("ADD DATA"), centerTitle: true,
+        backgroundColor: Colors.blueAccent,
+        foregroundColor: Colors.white,),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Card(
+            elevation: 8,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("Add Data",style: TextStyle(
+                        fontSize:
+                        MediaQuery.of(context).size.width *
+                            0.10,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold),),
+                  SizedBox(height: 30,),
+                  Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    CircleAvatar(
+                      radius: 80,
+                      backgroundColor: Colors.grey.shade300,
+                      backgroundImage: selectedFile!=null?FileImage(selectedFile!):AssetImage("assets/img_7.png")
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextFormField(
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Please enter an email";
-                        }
-                        if (!RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
-                            .hasMatch(value)) {
-                          return "Please enter a valid email";
-                        }
-                        return null;
-                      },
-                      controller: emailController,
-                      maxLength: 30,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        filled: true,
-                        fillColor: Colors.white,
-                        labelText: 'Email',
-                        hintText: 'Enter your email',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                        prefixIcon: const Icon(Icons.email),
+                      FloatingActionButton(
+                        mini: true,
+                        backgroundColor: Colors.blueAccent,
+                        onPressed: selectFile,
+                        child: Icon(Icons.camera_alt, color: Colors.white),
                       ),
-                    ),
-                  ),
-                  Container(
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(width: 120,height: 120, decoration: BoxDecoration(
-                            color: Colors.black12,
-                            border: Border.all(color: Colors.black, width: 3),
-                            borderRadius: const BorderRadius.all(Radius.circular(5)),
-                          ),child: selectedFile!=null?Image.file(selectedFile!,fit: BoxFit.fitHeight,):Center(child: Text("NO FILE SELECTED",style: TextStyle(fontWeight: FontWeight.bold,fontStyle: FontStyle.italic,fontSize: 12)))),
-                        ),
-                        Positioned(
-                          top: 90,
-                          left: 80,
-                          child: ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.black,shape: CircleBorder()),
-                              onPressed: () {selectFile();}, child: Icon(Icons.camera_alt,color: Colors.white,size: 20,)),
-                        )
                       ],
                     ),
-                  ),
-                  Text(
-                    error,
-                    style: const TextStyle(
-                      color: Colors.red,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: submitData,
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.black),
-                    child: Text(
-                      "Submit",
-                      style: TextStyle(color: Colors.white,
-                        fontSize: MediaQuery.of(context).size.width * 0.06,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(height: 20),
+                    TextFormField(
+                      controller: nameController,
+                      validator: (value) =>
+                      value!.isEmpty
+                          ? 'Enter your name'
+                          : null,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.blueAccent),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                        ),
+                        labelText: "Full Name",
+                        hintText: "Enter Full Name",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        prefixIcon: Icon(Icons.person),
                       ),
                     ),
-                  ),
-                ],
+                    SizedBox(height: 16),
+                    TextFormField(
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) =>
+                      value!.isEmpty ||
+                          !RegExp(r"^(?!.*\.\.)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)
+                          ? 'Enter a valid email'
+                          : null,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.blueAccent),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                        ),
+                        labelText: "Email",
+                        hintText: "Enter Email",
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        prefixIcon: Icon(Icons.email),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: submitData,
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 12, horizontal: 40),
+                        backgroundColor: Colors.blueAccent,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                      child: Text("Save Changes",
+                          style: TextStyle(fontSize: 16, color: Colors.white)),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

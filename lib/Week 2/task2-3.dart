@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weapplinse/Week%202/task2-3-10.dart';
-import 'package:weapplinse/Week%202/task2-3-6.dart';
-import 'package:weapplinse/Week%202/task2-3-1.dart';
-import 'package:weapplinse/Week%202/task2-3-2.dart';
-import 'package:weapplinse/Week%202/task2-3-3.dart';
-import 'package:weapplinse/Week%202/task2-3-4.dart';
-import 'package:weapplinse/Week%202/task2-3-5.dart';
-import 'package:weapplinse/Week%202/task2-3-7.dart';
-import 'package:weapplinse/Week%202/task2-3-8.dart';
-import 'package:weapplinse/Week%202/task2-3-9.dart';
+import 'package:pocketcoach/Week%202/task2-3-1.dart';
+import 'package:pocketcoach/Week%202/task2-3-10.dart';
+import 'package:pocketcoach/Week%202/task2-3-2.dart';
+import 'package:pocketcoach/Week%202/task2-3-3.dart';
+import 'package:pocketcoach/Week%202/task2-3-4.dart';
+import 'package:pocketcoach/Week%202/task2-3-5.dart';
+import 'package:pocketcoach/Week%202/task2-3-6.dart';
+import 'package:pocketcoach/Week%202/task2-3-7.dart';
+import 'package:pocketcoach/Week%202/task2-3-8.dart';
+import 'package:pocketcoach/Week%202/task2-3-9.dart';
+
 
 class task23 extends StatefulWidget {
   const task23({super.key});

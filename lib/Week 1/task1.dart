@@ -30,37 +30,39 @@ class _task1State extends State<task1> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.black12,
-                      border: Border.all(color: Colors.black, width: 3),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      "   Flutter is an open-source framework from Google that allows developers to build applications for multiple platforms using a single codebase . Platforms Flutter supports development for iOS, Android, the web, Windows, MacOS, and Linux",
-                      style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
-                          fontStyle: FontStyle.italic),
-                    ),
-                  )),
+                decoration: BoxDecoration(
+                    color: Colors.black12,
+                    border: Border.all(color: Colors.black, width: 3),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    "   Flutter is an open-source framework from Google that allows developers to build applications for multiple platforms using a single codebase . Platforms Flutter supports development for iOS, Android, the web, Windows, MacOS, and Linux",
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontStyle: FontStyle.italic),
+                  ),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.black12,
-                      border: Border.all(color: Colors.black, width: 3),
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      """Flutter Latest SDK := 3.27.2
+                decoration: BoxDecoration(
+                    color: Colors.black12,
+                    border: Border.all(color: Colors.black, width: 3),
+                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Text(
+                    """Flutter Latest SDK := 3.27.2
 Dart Latest SDK     := 3.6.1""",
-                      style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width * 0.06,
-                          fontStyle: FontStyle.italic),
-                    ),
-                  )),
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.06,
+                        fontStyle: FontStyle.italic),
+                  ),
+                ),
+              ),
             )
           ],
         ),

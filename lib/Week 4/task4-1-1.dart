@@ -1,14 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:weapplinse/Week%203/api.dart';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:weapplinse/Week%203/api2.dart';
-import 'package:weapplinse/Week%203/task3-3-2.dart';
-import 'package:weapplinse/Week%203/task3-3-4.dart';
-import 'package:weapplinse/Week%203/task3-1-2-2.dart';
+import 'package:http/http.dart' as http;
+
+import '../Week 3/api.dart';
 
 class task411 extends StatefulWidget {
   const task411({super.key});
@@ -23,7 +22,7 @@ class _task411State extends State<task411> {
   var b = TextEditingController();
   var c = TextEditingController();
   var d = TextEditingController();
-  var error="";
+  var error = "";
   final fetch = api();
   var rno;
   var name = "", email = "", pic = "";
@@ -33,32 +32,31 @@ class _task411State extends State<task411> {
   File? _profilePic;
   late Future<List<dynamic>> data;
 
+  @override
   void initState() {
     super.initState();
     disp(); // Fetch the list of users
   }
-  void disp(){
-    data = api.fetch();
-    setState(() {
 
+  void disp() {
+    setState(() {
+      data = api.fetch(); // Fetch the data without pagination (lazy loading)
     });
-    print(data);
   }
+
   Future<void> select() async {
-    FilePickerResult? result =
-    await FilePicker.platform.pickFiles(type: FileType.image);
+    FilePickerResult? result = await FilePicker.platform.pickFiles(type: FileType.image);
     if (result != null) {
       setState(() {
         file = File(result.files.single.path!);
       });
-    }
-    else {
-// User canceled the picker
+    } else {
       setState(() {
         error = "No file selected.";
       });
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,20 +87,29 @@ class _task411State extends State<task411> {
                   } else {
                     final user = snapshot.data!;
                     return ListView.builder(
+                      padding: EdgeInsets.all(10),
                       itemCount: user.length,
                       itemBuilder: (context, index) {
                         final b = user[index];
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(decoration: BoxDecoration(
-                            color: Colors.black12,
-                            border: Border.all(color: Colors.black, width: 3),
-                            borderRadius: const BorderRadius.all(Radius.circular(20)),
-                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.black12,
+                              border: Border.all(color: Colors.black, width: 3),
+                              borderRadius: const BorderRadius.all(Radius.circular(20)),
+                            ),
                             child: ListTile(
+                              minTileHeight: 100,
                               title: Text(b["name"]),
                               subtitle: Text(b['email']),
-                              leading:Container(width: 65,height: 100,color: Colors.black12,
+                              leading: Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: Colors.black12,
+                                ),
                                 child: CachedNetworkImage(
                                   imageUrl: b['profile_pic'],
                                   placeholder: (context, url) => Center(

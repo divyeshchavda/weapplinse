@@ -1,7 +1,9 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:weapplinse/Week%203/api.dart';
+
+import 'api.dart';
+
 
 class task334 extends StatefulWidget {
   final String? id;
@@ -14,7 +16,6 @@ class task334 extends StatefulWidget {
   @override
   State<task334> createState() => _task334State();
 }
-
 class _task334State extends State<task334> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
@@ -36,135 +37,163 @@ class _task334State extends State<task334> {
         _selectedFile = File(result.files.single.path!);
         _isFileSelected = true;
       });
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No file selected.')),
-      );
     }
   }
 
   Future<void> _updateDetails() async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        final response = await api.edit(
-          Id: widget.id!,
-          name: _nameController.text.trim(),
-          email: _emailController.text.trim(),
-          pic: _isFileSelected?_selectedFile!:null,
-        );
+    final email = _emailController.text;
 
-        if (response.statusCode == 200) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('User details updated successfully')),
+    List<dynamic> users = await api.fetch();
+    print("BEFORE");
+    print(users);
+    users.removeWhere((user) => user["user_id"] == int.parse(widget.id!));
+    print("AFTER");
+    print(users);
+    bool emailExists = users.any((user) => user['email'] == email );
+    print(emailExists);
+    bool emailExists2 = users.any((user) => user['user_id'] != widget.id);
+    print(emailExists2);
+    if(emailExists){
+      setState(() {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Email already exists. Please use a different email."),duration: Duration(milliseconds: 300),));
+      });
+    }
+    else{
+      if (_formKey.currentState!.validate()) {
+        try {
+          final response = await api.edit(
+            Id: widget.id!,
+            name: _nameController.text.trim(),
+            email: _emailController.text.trim(),
+            pic: _isFileSelected ? _selectedFile! : null,
           );
-          Navigator.pop(context);
-        } else {
+
+          if (response.statusCode == 200) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('User details updated successfully'),duration: Duration(milliseconds: 500),),
+            );
+            Navigator.pop(context);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                  content: Text('Failed to update user: ${response.body}')),
+            );
+          }
+        } catch (e) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to update user: ${response.body}')),
+            SnackBar(content: Text('Error: $e')),
           );
         }
-      } catch (e) {
+      } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: $e')),
+          SnackBar(content: Text('Please fill all required fields')),
         );
       }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please fill all required fields')),
-      );
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Edit User")),
-      resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Container(decoration: BoxDecoration(
-          color: Colors.black12,
-          border: Border.all(color: Colors.black, width: 3),
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-        ),
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  Text("UPDATE DATA",style: TextStyle(
-                      fontSize:
-                      MediaQuery.of(context).size.width *
-                          0.10,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.bold),),
-                  const SizedBox(height: 5),
-                  TextFormField(
-                    controller: _nameController,
-                    validator: (value) =>
-                    value == null || value.isEmpty ? 'Please enter a name' : null,
-                    maxLength: 30,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'Name',
-                      hintText: 'Enter your name',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  SizedBox(height: 16),
-                  TextFormField(
-                    controller: _emailController,
-                    maxLength: 30,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) => value == null || value.isEmpty
-                        ? 'Please enter an email'
-                        : !RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)
-                        ? 'Please enter a valid email'
-                        : null,
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      labelText: 'Email',
-                      hintText: 'Enter your email',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  Container(
-                    child: Stack(
+      appBar: AppBar(
+        title: Text("Edit Profile"),
+        centerTitle: true,
+        backgroundColor: Colors.blueAccent,
+        foregroundColor: Colors.white,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Card(
+            elevation: 8,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("Update Data",style: TextStyle(
+                        fontSize:
+                        MediaQuery.of(context).size.width *
+                            0.10,
+                        fontStyle: FontStyle.italic,
+                        fontWeight: FontWeight.bold),),
+                    SizedBox(height: 30,),
+                    Stack(
+                      alignment: Alignment.bottomRight,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: 120,
-                            height: 120,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black, width: 3),
-                              borderRadius: BorderRadius.circular(5),
-                            ),
-                            child: _isFileSelected
-                                ? Image.file(_selectedFile!, fit: BoxFit.cover)
-                                : widget.imageg != null
-                                ? Image.network(widget.imageg!, fit: BoxFit.cover)
-                                : Center(child: Text('No Image Selected')),
-                          ),
+                        CircleAvatar(
+                         radius: 80,
+                          backgroundColor: Colors.grey.shade300,
+                          backgroundImage: _isFileSelected
+                              ? FileImage(_selectedFile!)
+                              : widget.imageg != null
+                              ? NetworkImage(widget.imageg!)
+                              : AssetImage("assets/default_user.png"),
                         ),
-                        Positioned(
-                          top: 90,
-                          left: 80,
-                          child: ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.black,shape: CircleBorder()),
-                              onPressed: () {_selectFile();}, child: Icon(Icons.camera_alt,color: Colors.white,size: 20,)),
-                        )
+                        FloatingActionButton(
+                          mini: true,
+                          backgroundColor: Colors.blueAccent,
+                          onPressed: _selectFile,
+                          child: Icon(Icons.camera_alt, color: Colors.white),
+                        ),
                       ],
                     ),
-                  ),
-                  SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: _updateDetails,
-                    child: Text('Save'),
-                  ),
-                ],
+                    SizedBox(height: 20),
+                    TextFormField(
+                      controller: _nameController,
+                      validator: (value) => value!.isEmpty ? 'Enter your name' : null,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.blueAccent),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                        ),
+                        labelText: "Full Name",
+                        hintText: "Enter Full Name",
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        prefixIcon: Icon(Icons.person),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    TextFormField(
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) => value!.isEmpty || !RegExp(r"^(?!.*\.\.)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$").hasMatch(value)
+                          ? 'Enter a valid email'
+                          : null,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.blueAccent),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                          borderSide: BorderSide(color: Colors.blue, width: 2),
+                        ),
+                        labelText: "Email",
+                        hintText: "Enter Email",
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        prefixIcon: Icon(Icons.email),
+                      ),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: _updateDetails,
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 12, horizontal: 40),
+                        backgroundColor: Colors.blueAccent,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      ),
+                      child: Text("Save Changes", style: TextStyle(fontSize: 16, color: Colors.white)),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -173,3 +202,4 @@ class _task334State extends State<task334> {
     );
   }
 }
+

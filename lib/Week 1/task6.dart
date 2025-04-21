@@ -12,53 +12,35 @@ class _task6State extends State<task6> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addObserver(this); // Add observer for lifecycle changes
+    // Add observer for lifecycle changes
+    WidgetsBinding.instance.addObserver(this);
+    // Show SnackBar after initState is called
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _showSnackBar("initState called");
+      },
+    );
   }
 
   @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this); // Remove observer when not needed
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-
-    String message = "";
-
-    switch (state) {
-      case AppLifecycleState.resumed:
-        message = "The app is in the foreground and active.";
-        print("The app is in the foreground and active.");
-        break;
-      case AppLifecycleState.inactive:
-        message = "The app is transitioning between states.";
-        print("The app is transitioning between states.");
-        break;
-      case AppLifecycleState.paused:
-        message = "The app is in the background and not visible.";
-        print("The app is in the background and not visible.");
-        break;
-      case AppLifecycleState.detached:
-        message =
-        "The app is still hosted on a Flutter engine but detached from any host views.";
-        print("The app is still hosted on a Flutter engine but detached from any host views.");
-        break;
-      case AppLifecycleState.hidden:
-        // TODO: Handle this case.
-        throw UnimplementedError();
-    }
-
-    if (message.isNotEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message)),
-      );
-    }
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Show SnackBar after didChangeDependencies is called
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _showSnackBar("didChangeDependencies called");
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    // Show SnackBar after build is called
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _showSnackBar("build called");
+      },
+    );
     return Scaffold(
       appBar: AppBar(
         title: const Text("TASK 6"),
@@ -111,6 +93,95 @@ class _task6State extends State<task6> with WidgetsBindingObserver {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  @override
+  void didUpdateWidget(covariant task6 oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Show SnackBar after didUpdateWidget is called
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _showSnackBar("didUpdateWidget called");
+      },
+    );
+  }
+
+  @override
+  void setState(VoidCallback fn) {
+    super.setState(fn);
+    // Show SnackBar after setState is called
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _showSnackBar("setState called");
+      },
+    );
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    // Show SnackBar after deactivate is called
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _showSnackBar("deactivate called");
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance
+        .removeObserver(this); // Remove observer when not needed
+    super.dispose();
+    // Show SnackBar after dispose is called
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) {
+        _showSnackBar("dispose called");
+      },
+    );
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    String message = "";
+
+    switch (state) {
+      case AppLifecycleState.resumed:
+        message = "The app is in the foreground and active.";
+        break;
+      case AppLifecycleState.inactive:
+        message = "The app is transitioning between states.";
+        break;
+      case AppLifecycleState.paused:
+        message = "The app is in the background and not visible.";
+        break;
+      case AppLifecycleState.detached:
+        message =
+            "The app is still hosted on a Flutter engine but detached from any host views.";
+        break;
+      case AppLifecycleState.hidden:
+        throw UnimplementedError();
+    }
+
+    // Show a SnackBar when app lifecycle state changes
+    if (message.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) {
+          _showSnackBar(message);
+        },
+      );
+    }
+  }
+
+  // Method to show the SnackBar
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: Duration(milliseconds: 300),
       ),
     );
   }

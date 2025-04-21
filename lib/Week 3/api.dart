@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
 class api{
-  static const String baseurl="http://192.168.29.41/blog/api";
+  static const String baseurl="http://192.168.29.42/blog/api";
   static Future<dynamic> add({required String name,required String email,required File pic}) async{
     var url = Uri.parse('$baseurl/add_user');
     Map<String, String> headers = {
@@ -79,5 +79,14 @@ class api{
       print("Failed to Delete: ${response.body}");
     }
   }
+  static Future<List<dynamic>> fetch2({required int page, required int limit}) async {
+    final url = Uri.parse('$baseurl/get_user_list?page=$page&limit=$limit');
+    final response = await http.get(url);
 
+    if (response.statusCode == 200) {
+      return json.decode(response.body)['data']; // Extract 'data' from the response
+    } else {
+      throw Exception('Failed to load users');
+    }
+  }
 }
